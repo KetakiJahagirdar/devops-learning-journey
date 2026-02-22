@@ -15,3 +15,36 @@ if [[ $# -ne 2 ]]; then
   echo "Usage: $0 <num1> <num2>" >&2
   exit 1
 fi
+
+Notes
+
+>&2 sends the usage message to stderr (best practice for errors/help).
+exit 1 indicates a non‑zero, error exit code.
+
+➕ 2) Arithmetic in Bash — Adding Two Numbers
+Example Script
+
+#!/usr/bin/env bash
+set -euo pipefail
+
+if [[ $# -ne 2 ]]; then
+  echo "Usage: $0 <num1> <num2>" >&2
+  exit 1
+fi
+
+num1="$1"
+num2="$2"
+
+# Optional: simple integer validation
+if ! [[ "$num1" =~ ^-?[0-9]+$ && "$num2" =~ ^-?[0-9]+$ ]]; then
+  echo "Error: both arguments must be integers." >&2
+  exit 1
+fi
+
+sum=$(( num1 + num2 ))
+echo "Sum is: $sum"
+
+Quick tips
+
+Arithmetic expansion: (( ... )) or $(( ... ))
+Positional args: $1, $2, …
