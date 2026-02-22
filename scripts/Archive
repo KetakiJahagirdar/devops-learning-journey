@@ -1,1 +1,32 @@
+#Practical Exercise: Creating a script to display system information using variables
 
+#!/bin/bash
+
+# Assign system information to variables
+HOSTNAME=$(hostname)
+KERNEL_VERSION=$(uname -r)
+UPTIME=$(uptime | awk -F',' '{print $1}')
+CURRENT_USER=$(whoami)
+CURRENT_DIR=$(pwd)
+
+# Display the information
+echo "System Information:"
+echo "-------------------"
+echo "Hostname: $HOSTNAME"
+echo "Kernel Version: $KERNEL_VERSION"
+echo "Uptime: $UPTIME"
+echo "Current User: $CURRENT_USER"
+echo "Current Directory: $CURRENT_DIR"
+
+# Print the script's PID
+echo "Script PID: $$"
+
+# Print the number of arguments passed to the script
+echo "Number of arguments: $#"
+
+# Check exit status of last command
+if [ $? -eq 0 ]; then
+  echo "Script executed successfully."
+else
+  echo "Script execution may have encountered errors."
+fi
