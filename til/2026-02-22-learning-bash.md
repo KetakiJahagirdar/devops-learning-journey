@@ -50,7 +50,7 @@ echo "Sum is: $sum"
 Arithmetic expansion: `(( ... )) or $(( ... ))`
 Positional args: ** $1, $2, …**
 
-## **📁 3) Checking File Existence Using ls and $?**
+**📁 3) Checking File Existence Using ls and $?**
 
 ***Why $??***
 $? holds the exit status of the last command (0 = success; non‑zero = failure).
@@ -61,7 +61,7 @@ set -euo pipefail
 
 file="${1:-}"
 
-# Temporarily allow failure so we can read $?
+Temporarily allow failure so we can read $?
 set +e
 output=$(ls -l -- "$file" 2>/dev/null)
 status=$?
@@ -80,7 +80,7 @@ Why set +e?
 With set -e, a failing command aborts the script. We disable it briefly to let ls fail gracefully, capture $?, then restore set -e.
 Alternatives (keep -e on):
 
-# 1) Guard with 'if'
+1) Guard with 'if'
 if output=$(ls -l -- "$file" 2>/dev/null); then
   size=$(awk '{print $5}' <<<"$output")
   echo "Size: ${size} bytes"
@@ -88,11 +88,11 @@ else
   echo "Error: file not found." >&2
 fi
 
-# 2) Use '|| true'
+2) Use '|| true'
 output=$(ls -l -- "$file" 2>/dev/null) || true
 status=$?
 
-🔁 4) Background Jobs and $! (PID of Last Background Process)
+##**🔁 4) Background Jobs and $! (PID of Last Background Process)**
 Concepts
 
 & runs a command in the background.
@@ -106,7 +106,8 @@ set -euo pipefail
 sleep 60 &
 echo "Started background job with PID: $!"
 ```
-**📊 5) Log Analysis with awk, sort, uniq **
+
+##**📊 5) Log Analysis with awk, sort, uniq**
 
 a) Extract All Unique IPs (first field in common access logs)
 ```
@@ -121,7 +122,7 @@ b) Most Frequent IP Address
 
 awk '{print $1}' access.log | sort | uniq -c | sort -nr | head -n 1
 
-Pipeline logic
+**Pipeline logic**
 
 awk '{print $1}' → extract IPs
 sort → group identical IPs together
@@ -147,7 +148,7 @@ Runs command once per file (slower for many files).
 Appends many pathnames at once to command, repeating as needed (similar to xargs batching).
 Safer for unusual filenames than plain xargs (no need for -print0/-0).
 
-# **🆚 7) Why -exec Instead of xargs (and when to use xargs)** #
+##**🆚 7) Why -exec Instead of xargs (and when to use xargs)**
 
 Use -exec … {} + when
 
@@ -164,7 +165,7 @@ Safe xargs pattern
 find . -type f -print0 | xargs -0 grep -l "error"
 ```
 
-**🧷 8) Strict Mode: set -e, set +e, set -o pipefail, set -u **
+##**🧷 8) Strict Mode: set -e, set +e, set -o pipefail, set -u**
 
 set -e → exit on a command failure
 set +e → temporarily disable that behavior (to inspect $?)
@@ -186,7 +187,7 @@ if [[ $status -ne 0 ]]; then
 fi
 ```
 
-**🧩 9) Understanding and Setting PS1 (Your Bash Prompt)**
+##**🧩 9) Understanding and Setting PS1 (Your Bash Prompt)**
 
 Examples (temporary in current shell)
 ```
@@ -206,7 +207,7 @@ You’re not in bash (e.g., zsh/fish)
 PROMPT_COMMAND or later lines overwrite PS1
 You’re in a root shell (sudo -i) and editing the wrong rc file
 
-**🔀 10) Redirection & File Descriptors**
+##**🔀 10) Redirection & File Descriptors**
 **Common patterns**
 ```
 cmd > out.txt          # stdout to file (overwrite)
@@ -217,7 +218,7 @@ cmd > out.txt 2>&1     # redirect stderr to stdout target
 ```
 <img width="377" height="283" alt="image" src="https://github.com/user-attachments/assets/d5354c2d-b071-4ec0-ac2c-3360902935b0" />
 
-**🧰 12) Everyday Bash Commands (Quick Reminders)**
+##**🧰 12) Everyday Bash Commands (Quick Reminders)**
 
 Basics
 ```
