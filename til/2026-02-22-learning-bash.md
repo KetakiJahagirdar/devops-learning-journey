@@ -50,7 +50,7 @@ echo "Sum is: $sum"
 Arithmetic expansion: `(( ... )) or $(( ... ))`
 Positional args: ** $1, $2, …**
 
-**📁 3) Checking File Existence Using ls and $? **
+## **📁 3) Checking File Existence Using ls and $?**
 
 ***Why $??***
 $? holds the exit status of the last command (0 = success; non‑zero = failure).
@@ -147,7 +147,7 @@ Runs command once per file (slower for many files).
 Appends many pathnames at once to command, repeating as needed (similar to xargs batching).
 Safer for unusual filenames than plain xargs (no need for -print0/-0).
 
-**🆚 7) Why -exec Instead of xargs (and when to use xargs)**
+# **🆚 7) Why -exec Instead of xargs (and when to use xargs)** #
 
 Use -exec … {} + when
 
