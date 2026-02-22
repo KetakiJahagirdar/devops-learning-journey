@@ -53,7 +53,7 @@ Positional args: ** $1, $2, …**
 
 **📁 3) Checking File Existence Using ls and $?**
 
-***Why $??***
+**Why $??**
 $? holds the exit status of the last command (0 = success; non‑zero = failure).
 Pattern with strict mode
 
