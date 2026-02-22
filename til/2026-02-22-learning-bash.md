@@ -34,13 +34,14 @@ fi
 
 num1="$1"
 num2="$2"
-
+```
 # Optional: simple integer validation
+```
 if ! [[ "$num1" =~ ^-?[0-9]+$ && "$num2" =~ ^-?[0-9]+$ ]]; then
   echo "Error: both arguments must be integers." >&2
   exit 1
 fi
-
+```
 sum=$(( num1 + num2 ))
 echo "Sum is: $sum"
 ```
@@ -55,14 +56,14 @@ Positional args: ** $1, $2, …**
 ***Why $??***
 $? holds the exit status of the last command (0 = success; non‑zero = failure).
 Pattern with strict mode
-
+```
 #!/usr/bin/env bash
 set -euo pipefail
 
 file="${1:-}"
-
+```
 Temporarily allow failure so we can read $?
-set +e
+```set +e
 output=$(ls -l -- "$file" 2>/dev/null)
 status=$?
 set -e
@@ -75,23 +76,23 @@ else
   echo "Error: file '$file' not found." >&2
   exit 1
 fi
-
-Why set +e?
+```
+> Why set +e?
 With set -e, a failing command aborts the script. We disable it briefly to let ls fail gracefully, capture $?, then restore set -e.
 Alternatives (keep -e on):
 
 1) Guard with 'if'
-if output=$(ls -l -- "$file" 2>/dev/null); then
+```if output=$(ls -l -- "$file" 2>/dev/null); then
   size=$(awk '{print $5}' <<<"$output")
   echo "Size: ${size} bytes"
 else
   echo "Error: file not found." >&2
 fi
-
+```
 2) Use '|| true'
-output=$(ls -l -- "$file" 2>/dev/null) || true
+```output=$(ls -l -- "$file" 2>/dev/null) || true
 status=$?
-
+```
 ## **🔁 4) Background Jobs and $! (PID of Last Background Process)**
 Concepts
 
