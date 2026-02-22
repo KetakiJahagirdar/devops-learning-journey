@@ -41,7 +41,7 @@ if ! [[ "$num1" =~ ^-?[0-9]+$ && "$num2" =~ ^-?[0-9]+$ ]]; then
   echo "Error: both arguments must be integers." >&2
   exit 1
 fi
-```
+
 sum=$(( num1 + num2 ))
 echo "Sum is: $sum"
 ```
@@ -56,14 +56,17 @@ Positional args: ** $1, $2, …**
 ***Why $??***
 $? holds the exit status of the last command (0 = success; non‑zero = failure).
 Pattern with strict mode
+
 ```
 #!/usr/bin/env bash
 set -euo pipefail
 
 file="${1:-}"
 ```
+
 Temporarily allow failure so we can read $?
-```set +e
+```
+set +e
 output=$(ls -l -- "$file" 2>/dev/null)
 status=$?
 set -e
@@ -78,20 +81,25 @@ else
 fi
 ```
 > Why set +e?
+
 With set -e, a failing command aborts the script. We disable it briefly to let ls fail gracefully, capture $?, then restore set -e.
 Alternatives (keep -e on):
 
 1) Guard with 'if'
-```if output=$(ls -l -- "$file" 2>/dev/null); then
+```
+if output=$(ls -l -- "$file" 2>/dev/null); then
   size=$(awk '{print $5}' <<<"$output")
   echo "Size: ${size} bytes"
 else
   echo "Error: file not found." >&2
 fi
 ```
+
 2) Use '|| true'
-```output=$(ls -l -- "$file" 2>/dev/null) || true
+```
+output=$(ls -l -- "$file" 2>/dev/null) || true
 status=$?
+
 ```
 ## **🔁 4) Background Jobs and $! (PID of Last Background Process)**
 Concepts
@@ -120,8 +128,9 @@ awk '{print $1}' → print the first whitespace‑separated field (usually clien
 sort -u → sort and keep unique values only
 
 b) Most Frequent IP Address
-
+```
 awk '{print $1}' access.log | sort | uniq -c | sort -nr | head -n 1
+```
 
 **Pipeline logic**
 
@@ -132,18 +141,23 @@ sort -nr → sort numerically, reversed (highest count first)
 head -n 1 → show the top (most frequent) IP
 
 Print only the IP (without count)
+```
 awk '{print $1}' access.log | sort | uniq -c | sort -nr | head -n 1 | awk '{print $2}'
+```
 
 6) find -exec and {} + vs \;
 Basic per‑file execution
 
-```find /path -type f -exec command {} \;```
+```
+find /path -type f -exec command {} \;
+```
 
 Runs command once per file (slower for many files).
 
 **Batched (faster) execution**
 
-```find /path -type f -exec command {} +
+```
+find /path -type f -exec command {} +
 ```
 
 Appends many pathnames at once to command, repeating as needed (similar to xargs batching).
