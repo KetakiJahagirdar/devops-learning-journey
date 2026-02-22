@@ -233,7 +233,7 @@ cmd > out.txt 2>&1     # redirect stderr to stdout target
 ```
 <img width="377" height="283" alt="image" src="https://github.com/user-attachments/assets/d5354c2d-b071-4ec0-ac2c-3360902935b0" />
 
-## **🧰 12) Everyday Bash Commands (Quick Reminders)**
+## **🧰 11) Everyday Bash Commands (Quick Reminders)**
 
 Basics
 ```
