@@ -1,6 +1,4 @@
 # 📝 TIL — Bash Essentials, Concepts, and Examples
-*A ready-to-commit, GitHub‑friendly summary of everything I practiced today.*
-
 ---
 
 ## 📌 1) Validating Script Arguments (`$#`, `$0`)
@@ -15,7 +13,7 @@ if [[ $# -ne 2 ]]; then
   echo "Usage: $0 <num1> <num2>" >&2
   exit 1
 fi
-
+```
 Notes
 
 >&2 sends the usage message to stderr (best practice for errors/help).
